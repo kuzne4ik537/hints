@@ -1,0 +1,26 @@
+// restart/stop/start apache
+sudo service apache2 restart
+
+//turn on(off) xdebug 
+sudo phpenmod(phpdismod) xdebug
+
+//restrat php
+sudo service php7.0-fpm  restart 
+
+//open xdebug.ini
+ with nice eidtor 
+sudo gedit /etc/php/7.0/mods-available/xdebug.ini
+
+//add this line to htaccess to see all errors
+php_value display_errors 1
+
+//use instead of open . 
+xdg-open .
+
+//change brightness
+sudo -i
+echo 500 > /sys/class/backlight/intel_backlight/brightness         //from 0 to 937
+
+//disable touchpad
+xinput set-prop 12 "Device Enabled" 0
+

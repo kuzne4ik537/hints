@@ -1,0 +1,104 @@
+kuzne4ik537537@kuzne4ik537537-VirtualBox:/var/www$ sudo -i
+[sudo] password for kuzne4ik537537: 
+root@kuzne4ik537537-VirtualBox:~# cd /var/www/AzziMall_v4_Corbeil/
+root@ievgen:/var/www/Accent_Mall# git config core.filemode false
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil# usermod -G www-data kuzne4ik537537
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil# cd ..
+root@kuzne4ik537537-VirtualBox:/var/www# ls -la
+total 28
+drwxrwxrwx  7 root           root           4096 Sep 29 10:08 .
+drwxr-xr-x 15 root           root           4096 Sep 28 13:47 ..
+drwxrwxr-x 10 kuzne4ik537537 www-data       4096 Sep 28 16:32 Accent_Mall
+drwxrwxr-x 10 kuzne4ik537537 www-data       4096 Sep 28 15:26 AzziMall_v4
+drwxrwxr-x 13 kuzne4ik537537 kuzne4ik537537 4096 Sep 29 10:20 AzziMall_v4_Corbeil
+drwxr-xr-x  2 root           root           4096 Sep 28 13:47 html
+drwxrwxr-x 25 kuzne4ik537537 www-data       4096 Sep 28 17:05 Memport
+
+root@kuzne4ik537537-VirtualBox:/var/www# chown -R kuzne4ik537537:www-data AzziMall_v4_Corbeil/
+root@kuzne4ik537537-VirtualBox:/var/www# ls -la
+total 28
+drwxrwxrwx  7 root           root     4096 Sep 29 10:08 .
+drwxr-xr-x 15 root           root     4096 Sep 28 13:47 ..
+drwxrwxr-x 10 kuzne4ik537537 www-data 4096 Sep 28 16:32 Accent_Mall
+drwxrwxr-x 10 kuzne4ik537537 www-data 4096 Sep 28 15:26 AzziMall_v4
+drwxrwxr-x 13 kuzne4ik537537 www-data 4096 Sep 29 10:20 AzziMall_v4_Corbeil
+drwxr-xr-x  2 root           root     4096 Sep 28 13:47 html
+drwxrwxr-x 25 kuzne4ik537537 www-data 4096 Sep 28 17:05 Memport
+root@kuzne4ik537537-VirtualBox:/var/www# cd AzziMall_v4_Corbeil/
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil# cp /home/kuzne4ik537537/Documents/htaccess .htaccess
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil# chown kuzne4ik537537:www-data .htaccess
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil# a2enmod rewrite
+Module rewrite already enabled
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil# usermod -G www-data kuzne4ik537537
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil# cd ..
+root@kuzne4ik537537-VirtualBox:/var/www# chmod -R 775 AzziMall_v4_Corbeil/ Memport/
+root@kuzne4ik537537-VirtualBox:/var/www# ls -la
+total 28
+drwxrwxrwx  7 root           root     4096 Sep 29 10:08 .
+drwxr-xr-x 15 root           root     4096 Sep 28 13:47 ..
+drwxrwxr-x 10 kuzne4ik537537 www-data 4096 Sep 28 16:32 Accent_Mall
+drwxrwxr-x 10 kuzne4ik537537 www-data 4096 Sep 28 15:26 AzziMall_v4
+drwxrwxr-x 13 kuzne4ik537537 www-data 4096 Sep 29 10:46 AzziMall_v4_Corbeil
+drwxr-xr-x  2 root           root     4096 Sep 28 13:47 html
+drwxrwxr-x 25 kuzne4ik537537 www-data 4096 Sep 28 17:05 Memport
+root@kuzne4ik537537-VirtualBox:/var/www# cd AzziMall_v4_Corbeil/Subsystems/Corbeil/
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil# ls
+Config  Controller  Helper  Model  SQL  Static  Test  View
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil# mkdir LOGS
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil# cd Static/
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil/Static# mkdir minify
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil/Static# cd minify/
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil/Static/minify# ln -s ../../../ Subsystems
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil/Static/minify# ls -la
+total 8
+drwxr-xr-x  2 root           root     4096 Sep 29 10:50 .
+drwxrwxr-x 11 kuzne4ik537537 www-data 4096 Sep 29 10:50 ..
+lrwxrwxrwx  1 root           root        9 Sep 29 10:50 Subsystems -> ../../../
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil/Static/minify# cd ..
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil/Static# chown -R kuzne4ik537537:www-data *
+root@ievgen:/var/www/mall4_LRDS/Subsystems/LRDS/Static# chmod 777 minify/
+root@ievgen:/var/www/mall4_LRDS/Subsystems/LRDS/Static# chmod 777 js
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil/Static# cd ..
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil# ls -la
+total 56
+drwxrwxr-x 11 kuzne4ik537537 www-data 4096 Sep 29 10:49 .
+drwxrwxr-x  5 kuzne4ik537537 www-data 4096 Sep 29 10:20 ..
+drwxrwxr-x  3 kuzne4ik537537 www-data 4096 Sep 29 10:20 Config
+drwxrwxr-x  3 kuzne4ik537537 www-data 4096 Sep 29 10:20 Controller
+-rwxrwxr-x  1 kuzne4ik537537 www-data 8196 Sep 29 10:20 .DS_Store
+drwxrwxr-x  3 kuzne4ik537537 www-data 4096 Sep 29 10:20 Helper
+drwxr-xr-x  2 root           root     4096 Sep 29 10:49 LOGS
+drwxrwxr-x  2 kuzne4ik537537 www-data 4096 Sep 29 10:20 Model
+drwxrwxr-x  2 kuzne4ik537537 www-data 4096 Sep 29 10:20 SQL
+drwxrwxr-x 11 kuzne4ik537537 www-data 4096 Sep 29 10:50 Static
+drwxrwxr-x  2 kuzne4ik537537 www-data 4096 Sep 29 10:20 Test
+drwxrwxr-x 21 kuzne4ik537537 www-data 4096 Sep 29 10:20 View
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil# chown -R kuzne4ik537537:www-data *
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil# ls -la
+total 56
+drwxrwxr-x 11 kuzne4ik537537 www-data 4096 Sep 29 10:49 .
+drwxrwxr-x  5 kuzne4ik537537 www-data 4096 Sep 29 10:20 ..
+drwxrwxr-x  3 kuzne4ik537537 www-data 4096 Sep 29 10:20 Config
+drwxrwxr-x  3 kuzne4ik537537 www-data 4096 Sep 29 10:20 Controller
+-rwxrwxr-x  1 kuzne4ik537537 www-data 8196 Sep 29 10:20 .DS_Store
+drwxrwxr-x  3 kuzne4ik537537 www-data 4096 Sep 29 10:20 Helper
+drwxr-xr-x  2 kuzne4ik537537 www-data 4096 Sep 29 10:49 LOGS
+drwxrwxr-x  2 kuzne4ik537537 www-data 4096 Sep 29 10:20 Model
+drwxrwxr-x  2 kuzne4ik537537 www-data 4096 Sep 29 10:20 SQL
+drwxrwxr-x 11 kuzne4ik537537 www-data 4096 Sep 29 10:50 Static
+drwxrwxr-x  2 kuzne4ik537537 www-data 4096 Sep 29 10:20 Test
+drwxrwxr-x 21 kuzne4ik537537 www-data 4096 Sep 29 10:20 View
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil# chmod 777 LOGS
+
+root@ievgen:/var/www/Accent_Mall/Subsystems/Accent# cd ../Retailer/
+root@ievgen:/var/www/CISEQ_Mall/Subsystems/Retailer# git  init 
+root@ievgen:/var/www/CISEQ_Mall/Subsystems/Retailer# git remote add origin git@github.com:GuidyuMobile/CISEQ_Leadgen.git
+root@ievgen:/var/www/CISEQ_Mall/Subsystems/Retailer# git fetch
+root@ievgen:/var/www/CISEQ_Mall/Subsystems/Retailer# git config core.filemode false
+root@ievgen:/var/www/CISEQ_Mall/Subsystems/Retailer# git checkout dev
+root@ievgen:/var/www/CISEQ_Mall/Subsystems/Retailer# mkdir LOGS
+root@ievgen:/var/www/CISEQ_Mall/Subsystems/Retailer# chmod -R 775 *
+root@ievgen:/var/www/CISEQ_Mall/Subsystems/Retailer/Static# chown -R kuzne4ik537:www-data *
+
+
+root@kuzne4ik537537-VirtualBox:/var/www/AzziMall_v4_Corbeil/Subsystems/Corbeil# service apache2  restart
