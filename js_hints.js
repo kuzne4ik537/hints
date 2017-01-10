@@ -91,6 +91,32 @@ navigator.userAgent
 //содержит информацию о платформе, позволяет различать
 navigator.platform
 
+//В большинстве случаев, для модификаций DOM подходит innerHTML.
+// Но document.write работает быстрее, фактически это самый быстрый способ добавить на страницу текст, сгенерированный скриптом.
+
+//Добавление скриптов через DOM делает страницу независимой от возможных тормозов чужого сервера.
+  var script = document.createElement('script');
+  script.src = 'http://ads.com/buyme?rand='+Math.random();
+   
+  // теперь добавляем скрипт в HEAD, он будет загружен и выполнен
+  document.documentElement.children[0].appendChild(script);
+
+// Элементы DOM могут быть вложены друг в друга. При этом обработчик, привязанный к родителю,
+// срабатывает, даже если посетитель кликнул по потомку.
+// Это происходит потому, что событие всплывает.
+
+  
+
+
+
+
+
+
+
+
+
+
+
 /******************EXAMPLS*****************/
 
 //crate function myprint with the same fumcionality as have cosole.log using apply
