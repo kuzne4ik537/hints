@@ -23,4 +23,18 @@ echo 500 > /sys/class/backlight/intel_backlight/brightness         //from 0 to 9
 
 //disable touchpad
 xinput set-prop 12 "Device Enabled" 0
+             
 
+                         //Mongodb
+//start mongodb
+sudo systemctl start mongodb
+
+//stop mongodb
+sudo systemctl stop mongodb
+
+//enable mongodb on startup
+sudo systemctl enable mongodb.service
+
+//refresh the services use
+sudo systemctl daemon-reload
+                           // /Mongodb

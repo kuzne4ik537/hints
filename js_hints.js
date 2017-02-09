@@ -105,12 +105,72 @@ navigator.platform
 // срабатывает, даже если посетитель кликнул по потомку.
 // Это происходит потому, что событие всплывает.
 
-  
+// difference between even.target and this   (bubbling stage)
+var target = event.target || event.srcElement;
+event.target/srcElement //- означает исходный элемент, на котором произошло событие.
+this //- текущий элемент, до которого дошло всплытие и который запускает обработчик.
 
+//Прекращения всплытия
+  event.stopPropagation() or return false //(at hte end)  , but return false doesn't work on addEventListener        //(12)
 
+//Отмена действия браузера
+  event.preventDefault()           //(12)
 
+//Существует нестандартное CSS-свойство "user-select:none", которые делает элемент невыделяемым.            (12)
 
+//События focus и blur не всплывают.                                                                        (12)
+// В современных стандартах есть события focusin/focusout — то же самое, что и focus/blur,
+// только они всплывают.
 
+// Обработчик "window.onload" срабатывает, когда загружается вся страница, включая ресурсы                  (12)
+// на ней — стили, картинки, ифреймы и т.п.
+
+// Когда человек уходит со страницы или закрывает окно, срабатывает "window.unload". В нём можно,           (12)
+// например, закрыть вспомогательные popup-окна, но отменить сам переход нельзя.
+// Это позволяет другое событие — "window.onbeforeunload".
+
+//private and public methods and properties                                                                 (14)
+function Menu( options ) {
+  var self = this; // для обращения к объекту из методов
+ 
+  this.property = публичное свойство Menu
+   
+   var property = приватное свойство Menu
+ 
+  this.method = function() { публичный метод Menu }
+ 
+   function method(args) { приватный метод Menu }
+}
+
+//принадлежит ли свойство самому объекту, без учета его прототипа.                                           (15)
+object.hasOwnProperty('propertyName');
+
+//Цикл for..in перебирает все свойства в объекте и его прототипе.                                            (15)
+
+//Примитивы — не объекты, доказательство
+console.log(12 instanceof Number);
+console.log(new Number(12) instanceof Number);
+
+// Свойства и методы, которые начинаются с подчеркивания "_", считаются защищенным.                          (15)
+// Порядочный программист должен обращаться к ним только из самого объекта и из его
+// наследников.
+
+//Для наследования нужно, чтобы «склад методов потомка» (Child.prototype) наследовал от
+//«склада метода родителей» (Parent.prototype).
+Rabbit.prototype = Object.create(Animal.prototype);
+
+//Наследник может вызвать конструктор родителя в своём контексте, используя
+// apply(this, arguments), вот так:
+function Rabbit(...) {
+  Animal.apply(this, arguments);
+}
+
+//При переопределении метода родителя в потомке, к исходному методу можно обратиться,
+// взяв его напрямую из прототипа:
+Rabbit.prototype.run = function() {
+  var result = Animal.prototype.run.apply(this, ...);
+  // result -- результат вызова метода родителя
+}
 
 
 
@@ -287,7 +347,7 @@ var user = new User();
  
 setTimeout(user.sayHi, 1000); // выведет "1"
 
-//bind with arguments 
+//bind with arguments                    //(11)
 function mul(a, b) {
   return a * b;
 };
@@ -296,3 +356,139 @@ var double = mul.bind(null, 2); // первым аргументом всегд�
 var triple = mul.bind(null, 3); // первым аргументом всегда идёт контекст
 console.log( double(4) );  // 3*2 = 6
 console.log( triple(4) );  // 4*2 = 8
+
+// Чтобы избежать выделения, мы должны предотвратить действие браузера по умолчанию                                     (12)
+// для события selectstart в IE и mousedown в других браузерах.
+// Полный код элемента, который обрабатывает двойной клик без выделения:    (Это работает благодаря всплытию событий.)                 
+  <div ondblclick="alert('Тест')" onselectstart="return false"    
+  onmousedown="return false" >
+    Двойной клик сюда выведет "Тест", без выделения
+  <div>    
+
+
+//Применение делегирования для абсолютно разных действий
+  <div id="menu">
+    <button data-action="save">Нажмите, чтобы Сохранить</button>
+    <button data-action="load">Нажмите, чтобы Загрузить</button>
+  <div>
+   
+  <script>
+  function Menu(elem) {
+    this.save = function() { alert('сохраняю'); };
+    this.load = function() { alert('загружаю'); };
+   
+    var self = this;
+   
+    elem.onclick = function(e) {
+      var target = e && e.target || event.srcElement; // (*)
+      var action = target.getAttribute('data-action');
+      if (action) {
+        self[action]();
+      }
+    };
+  }
+   
+  new Menu(document.getElementById('menu'));
+  <script>
+
+// Как заставить обработчик сработать после действия браузера?
+// Решение — отложить обработку через setTimeout(..., 0):
+<input id="my" type="text" placeholder="Оптимальный вариант">
+ 
+<script>
+document.getElementById('my').onkeydown = function() {
+  var self = this;
+  function handle() {
+    self.value = self.value.toUpperCase()
+  }
+  setTimeout(handle, 0);
+ 
+};
+<script>
+
+//using ctrl,shift, alt 
+<button>Ctrl+Shift+Кликни меня!<button>
+<script>
+  document.body.children[0].onclick = function(e) {
+    e = e || event;
+    if (e.ctrlKey && e.shiftKey)     alert('Ура!');
+
+  }
+<script>
+
+//Find out Ctrl-C Ctrl-V and Ctrl-X
+<input type="text"> event: <span id="result"><span>
+<script>
+var input = document.body.children[0];
+ 
+input.oncut = input.oncopy = input.onpaste = function(e) {
+  e = e || event;
+  document.getElementById('result').innerHTML = e.type +' '+input.value;
+  //return false;
+}
+<script>
+
+//Count quantity of symbols typed                                         (12)
+<input type="text"> символов: <span id="result"><span>
+<script>
+var input = document.body.children[0];
+function showCount() {;
+  document.getElementById('result').innerHTML = input.value.length;
+}
+input.oncut = input.onkeyup = input.oninput = showCount;
+<script>
+
+//when loading script  onload and onerror                                   (12)
+<script>var script = document.createElement('script');
+script.src = "http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js";
+document.documentElement.appendChild(script);
+ 
+script.onload = function() {
+  alert(jQuery);
+}
+script.onerror = function() {
+  alert("Ошибка: " + this.src);
+}
+<script> 
+
+//Проверить, существует ли атрибут для события, например input.oninput:          (12)
+<script>
+  var input = document.createElement('input');
+  alert( "ontouchstart" in input );
+<script>
+
+//Наследование через ссылку __proto__                                   (15)
+var animal = { eats: true };
+var rabbit = { jumps: true };
+rabbit.__proto__ = animal;  // унаследовать
+alert(rabbit.eats); // true
+alert(rabbit.jumps); // true
+
+//Наследование через Object.create(proto)                               (15)
+var animal = { eats: true };
+var rabbit = Object.create(animal);
+alert(rabbit.eats); // true
+
+//Этот метод даёт возможность получить __proto__. но не изменить его.    (15)
+var animal = { eats: true }
+function Rabbit(name) {
+  this.name = name;
+}
+Rabbit.prototype = animal;
+var rabbit = new Rabbit('John');
+rabbit2 = Object.create(animal);
+console.log(Object.getPrototypeOf(rabbit));
+console.log(Object.getPrototypeOf(rabbit2));
+
+//Иногда хочется посмотреть, что находится именно в самом объекте, а не в прототипе.   (15)
+//Это можно сделать, если профильтровать key через hasOwnProperty:
+var animal = {
+  eats: true
+};
+rabbit = Object.create(animal);
+rabbit.jumps = true;
+for (var key in rabbit) {
+  if ( !rabbit.hasOwnProperty(key) ) continue; // пропустить "не свои" свойства
+  alert (key + " = " + rabbit[key]); // выводит только "jumps"
+}
+
